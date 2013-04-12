@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.common.base.Charsets;
 import com.yammer.metrics.annotation.Timed;
 
 @Path("/encode")
@@ -19,7 +20,7 @@ public class QpEncodeResource {
     @POST
     @Timed
     public Response encode(@FormParam("raw") String raw) throws UnsupportedEncodingException {
-        String encoded = MimeUtility.encodeText(raw);
+        String encoded = MimeUtility.encodeText(raw, Charsets.UTF_8.toString(), "Q");
         return Response.ok(encoded, "text/plain").build();
     }
 }
